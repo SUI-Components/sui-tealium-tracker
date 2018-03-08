@@ -57,7 +57,7 @@ export class SuiTealiumTracker {
   checkIfNeedToTrackClick ({ node, e }) {
     const { dataset = {} } = node
     const { tealiumTag } = dataset
-    let args = [tealiumTag]
+    let args = [dataset]
     tealiumTag && node.tagName === 'A' && this.handleAnchorDelay && args.push(this.delayAnchorLinkCall(e))
     tealiumTag && this.sendTealiumThrottled.apply(this, args)
   }
@@ -73,9 +73,8 @@ export class SuiTealiumTracker {
     window.dispatchCustomEvent = (detail) => dispatchEvent({ eventName: this.customEventName, detail })
   }
 
-  sendTealium (eventName, callback) {
-    const data = Object.assign({}, window.utag_data, {'event_name': eventName, 'es_sch_success_event': eventName, 'es_sch_adobe_is_enabled': 'true'})
-    const args = [data]
+  sendTealium (data, callback) {
+    const args = [{...window.utag_data, ...data}]
     callback && args.push(callback)
     window.utag ? window.utag.link.apply(window.utag, args) : console.warn('There is no utag present on this site no event was dispatched.')
   }
