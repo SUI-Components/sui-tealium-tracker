@@ -14,7 +14,7 @@ describe('SuiTealiumTracker', () => {
 </div>
   `
     document.body.insertAdjacentHTML('afterbegin', fixture)
-    suiTealiumTracker = new SuiTealiumTracker('test')
+    suiTealiumTracker = new SuiTealiumTracker({ customEventName: 'test' })
     suiTealiumTracker.init()
     sendTealiumThrottledSpy = sinon.spy(suiTealiumTracker, 'sendTealiumThrottled')
   })

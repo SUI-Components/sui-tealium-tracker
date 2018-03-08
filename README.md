@@ -27,7 +27,7 @@ If the tag exists it will call a throttle function that will call utag.link func
 
 
 ```javascript
-require('@s-ui/tealium-tracker')('MyCustomEventName')
+require('@s-ui/tealium-tracker')({ customEventName: 'MyCustomEventName' })
 ```
 
 The package will:
@@ -49,4 +49,20 @@ For retro-compatibility reasons we populate this function to the window so the s
 
 ```javascript
     window.dispatchCustomEvent = (detail) => dispatchEvent({ eventName: this.customEventName, detail })
+```
+
+## Anchor delay use case
+
+Some trackers like xiti inject an image in our site with the purpose of do the track effective. If we made a native redirection we could fall on image load cancelations due the redirection of the page. To avoid that you can init the tracker in a anchorDelay mode that will add the anchor as a callback of our link call and delay the location.reload for ensure purposes.
+
+
+
+```javascript
+require('@s-ui/tealium-tracker')({ handleAnchorDelay: true })
+```
+
+You can use it both with the custom event
+
+```javascript
+require('@s-ui/tealium-tracker')({ handleAnchorDelay: true, customEventName: 'MyCustomEventName' })
 ```

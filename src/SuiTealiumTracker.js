@@ -9,8 +9,9 @@ const THROTTLE_WAIT = 100
  * SuiTealiumTracker
  */
 export class SuiTealiumTracker {
-  constructor (customEventName) {
+  constructor ({customEventName, handleAnchorDelay} = {}) {
     this.customEventName = customEventName
+    this.handleAnchorDelay = handleAnchorDelay
     this.sendTealiumThrottled = FunctionThrottler.throttle(this.sendTealium, THROTTLE_WAIT)
   }
 
@@ -22,11 +23,12 @@ export class SuiTealiumTracker {
   }
 
   initClickListener () {
-    document.addEventListener('click', ({ target }) => {
+    document.addEventListener('click', (e) => {
+      let target = e.target
       let node = target
       do {
         if (node.nodeType !== ELEMENT_NODE) { break }
-        this.checkIfNeedToTrackClick({node})
+        this.checkIfNeedToTrackClick({node, e})
         const parentTagName = node.parentElement && node.parentElement.tagName.toUpperCase()
         // search if the parent is a clickable element to check, otherwise we stop
         node = ELEMENTS_CLICKABLE.includes(parentTagName) ? node.parentElement : false
@@ -52,19 +54,29 @@ export class SuiTealiumTracker {
     })
   }
 
-  checkIfNeedToTrackClick ({node}) {
+  checkIfNeedToTrackClick ({ node, e }) {
     const { dataset = {} } = node
     const { tealiumTag } = dataset
+    let args = [tealiumTag]
+    tealiumTag && node.tagName === 'A' && this.handleAnchorDelay && args.push(this.delayAnchorLinkCall(e))
+    tealiumTag && this.sendTealiumThrottled.apply(this, args)
+  }
 
-    tealiumTag && this.sendTealiumThrottled(tealiumTag)
+  delayAnchorLinkCall (e) {
+    e.preventDefault()
+    return () => {
+      setTimeout(() => window.location.replace(e.target.href), 300)
+    }
   }
 
   promoteDispatchCustomEventToWindow () {
     window.dispatchCustomEvent = (detail) => dispatchEvent({ eventName: this.customEventName, detail })
   }
 
-  sendTealium (eventName) {
-    const data = Object.assign({}, window.utag_data, {'event_name': eventName})
-    window.utag ? window.utag.link(data) : console.warn('There is no utag present on this site no event was dispatched.')
+  sendTealium (eventName, callback) {
+    const data = Object.assign({}, window.utag_data, {'event_name': eventName, 'es_sch_success_event': eventName, 'es_sch_adobe_is_enabled': 'true'})
+    const args = [data]
+    callback && args.push(callback)
+    window.utag ? window.utag.link.apply(window.utag, args) : console.warn('There is no utag present on this site no event was dispatched.')
   }
 }
