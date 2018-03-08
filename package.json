@@ -1,0 +1,52 @@
+{
+  "name": "@s-ui/tealium-tracker",
+  "version": "1.1.0",
+  "description": "Tool to track tealium tags and handle events with tealium",
+  "main": "lib/",
+  "scripts": {
+    "lib": "npm run lib:js",
+    "lib:js": "rm -Rf ./lib && mkdir -p ./lib && babel --presets sui ./src --out-dir ./lib",
+    "lint": "sui-lint js && sui-lint sass",
+    "test": "NODE_ENV=test npm run test:client && NODE_ENV=test npm run test:server",
+    "test:ci": "npm run test:client -- --ci",
+    "test:client": "NODE_ENV=test sui-test browser -P 'test/**/*Spec.js' -I 'test/server/*Spec.js'",
+    "test:client:watch": "npm run test:client -- --watch",
+    "test:server": "NODE_ENV=test sui-test server -P './test/!(browser)/*.js'",
+    "test:server:watch": "npm run test:server -- --watch",
+    "commitmsg": "validate-commit-msg",
+    "precommit": "sui-precommit run"
+  },
+  "keywords": [
+    "data-rel",
+    "track",
+    "service",
+    "tealium"
+  ],
+  "author": "Enablers frontend",
+  "license": "ISC",
+  "dependencies": {
+    "@s-ui/js": "1"
+  },
+  "devDependencies": {
+    "@s-ui/lint": "2",
+    "@s-ui/mono": "^1.27.0",
+    "@s-ui/precommit": "2",
+    "@s-ui/test": "^1.2.0",
+    "babel-cli": "6.24.1",
+    "babel-preset-sui": "1",
+    "chai": "^4.1.2",
+    "husky": "0.13.4",
+    "sinon": "4.4.2",
+    "validate-commit-msg": "2.12.2"
+  },
+  "config": {
+    "validate-commit-msg": {
+      "types": "@s-ui/mono/src/types"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/@s-ui/lint/eslintrc.js"
+    ]
+  }
+}
