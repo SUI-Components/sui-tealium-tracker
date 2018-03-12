@@ -25,7 +25,8 @@
   "author": "Enablers frontend",
   "license": "ISC",
   "dependencies": {
-    "@s-ui/js": "1"
+    "@s-ui/js": "1",
+    "just-debounce": "1.0.0"
   },
   "devDependencies": {
     "@s-ui/lint": "2",
