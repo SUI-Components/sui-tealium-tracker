@@ -4,4 +4,4 @@ import { SuiTealiumTracker } from './SuiTealiumTracker'
  * data tag.
  * @param {Object} params
  */
-module.exports = params => new SuiTealiumTracker(params).init()
+module.exports.tealiumTracker = params => new SuiTealiumTracker(params).init()
