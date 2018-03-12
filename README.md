@@ -9,7 +9,7 @@ cd
 
 To use it require it from the desired file as this:
 ```javascript
-require('@s-ui/tealium-tracker')
+require('@s-ui/tealium-tracker')()
 ```
 The package will: 
 #### 1. Init listeners:
