@@ -1,4 +1,4 @@
-import { FunctionThrottler } from './FunctionThrottler'
+import debounce from 'just-debounce'
 import { dispatchEvent } from '@s-ui/js/lib/events'
 
 const ELEMENTS_CLICKABLE = ['A', 'BUTTON', 'DIV', 'INPUT', 'SVG']
@@ -12,7 +12,7 @@ export class SuiTealiumTracker {
   constructor ({customEventName, handleAnchorDelay} = {}) {
     this.customEventName = customEventName
     this.handleAnchorDelay = handleAnchorDelay
-    this.sendTealiumThrottled = FunctionThrottler.throttle(this.sendTealium, THROTTLE_WAIT)
+    this.sendTealiumThrottled = debounce(this.sendTealium, THROTTLE_WAIT, true)
   }
 
   init () {
