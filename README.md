@@ -9,7 +9,14 @@ This tool is meant to be used with the [@s-ui/html-tagger](https://github.com/SU
 
 To use it require it from the desired file as this:
 ```javascript
-require('@s-ui/tealium-tracker')()
+require('@s-ui/tealium-tracker').tealiumTracker()
+```
+
+you can use it in a ES6 way too:
+
+```javascript
+import { tealiumTracker } from '@s-ui/tealium-tracker'
+tealiumTracker()
 ```
 The package will: 
 #### 1. Init listeners:
@@ -27,7 +34,15 @@ If the tag exists it will call a throttle function that will call utag.link func
 
 
 ```javascript
-require('@s-ui/tealium-tracker')({ customEventName: 'MyCustomEventName' })
+require('@s-ui/tealium-tracker').tealiumTracker({ customEventName: 'MyCustomEventName' })
+```
+
+
+you can do it in a ES6 way:
+
+```javascript
+import { tealiumTracker } from '@s-ui/tealium-tracker'
+tealiumTracker({ customEventName: 'MyCustomEventName' })
 ```
 
 The package will:
@@ -61,8 +76,22 @@ Some trackers like xiti inject an image in our site with the purpose of do the t
 require('@s-ui/tealium-tracker')({ handleAnchorDelay: true })
 ```
 
+you can do it in an ES6 way:
+
+```javascript
+import { tealiumTracker } from '@s-ui/tealium-tracker'
+tealiumTracker({ handleAnchorDelay: true })
+```
+
 You can use it both with the custom event
 
 ```javascript
 require('@s-ui/tealium-tracker')({ handleAnchorDelay: true, customEventName: 'MyCustomEventName' })
+```
+
+you can do it in an ES6 way:
+
+```javascript
+import { tealiumTracker } from '@s-ui/tealium-tracker'
+tealiumTracker({ handleAnchorDelay: true, customEventName: 'MyCustomEventName' })
 ```

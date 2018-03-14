@@ -28,3 +28,5 @@ node_modules
 umd
 .DS_Store
 lib
+
+package-lock.json
