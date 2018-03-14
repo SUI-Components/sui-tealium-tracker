@@ -1,6 +1,6 @@
 {
   "name": "@s-ui/tealium-tracker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tool to track tealium tags and handle events with tealium",
   "main": "lib/",
   "scripts": {
