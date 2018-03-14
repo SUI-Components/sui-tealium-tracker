@@ -14,7 +14,8 @@
     "test:server": "NODE_ENV=test sui-test server -P './test/!(browser)/*.js'",
     "test:server:watch": "npm run test:server -- --watch",
     "commitmsg": "validate-commit-msg",
-    "precommit": "sui-precommit run"
+    "precommit": "sui-precommit run",
+    "prepublish": "npm run lib"
   },
   "keywords": [
     "data-rel",
