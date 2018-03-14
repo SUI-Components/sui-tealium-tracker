@@ -33,7 +33,6 @@
     "@s-ui/mono": "1",
     "@s-ui/precommit": "2",
     "@s-ui/test": "1",
-    "@s-ui/test-dependencies": "1",
     "babel-cli": "6.24.1",
     "babel-preset-sui": "1",
     "chai": "4.1.2",
